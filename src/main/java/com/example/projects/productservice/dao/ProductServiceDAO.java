@@ -17,7 +17,12 @@ public class ProductServiceDAO {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
-	public Map<String, Product> getProduct() {
+	public int count(String id) {
+		String sql = "SELECT count(*) FROM PRODUCT WHERE ID = " + id;
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+
+	public Map<String, Product> getProducts() {
 		String sqlQuery = "SELECT ID, PRODUCT_NAME FROM PRODUCT";
 		Collection<Map<String, Object>> rows = jdbcTemplate.queryForList(sqlQuery);
 		Map<String, Product> productRepo = new HashMap<>();
@@ -32,7 +37,20 @@ public class ProductServiceDAO {
 		return productRepo;
 	}
 
-	//Not being used yet
+	public int createProduct(Product product) {
+		String sql = "INSERT INTO PRODUCT (ID, PRODUCT_NAME) VALUES(?,?)";
+		return jdbcTemplate.update(sql, product.getId(), product.getName());
+	}
+
+	public int updateProduct(String id, Product product) {
+		String sql = "UPDATE PRODUCT SET PRODUCT_NAME = ? WHERE ID = ?";
+		return jdbcTemplate.update(sql, product.getName(), id);
+	}
+
+	public int deleteProduct(String id) {
+		return jdbcTemplate.update("DELETE FROM PRODUCT WHERE ID = ?", id);
+	}
+
 	public List<Product> getProductList() {
 		String sqlQuery = "SELECT ID, PRODUCT_NAME FROM PRODUCT";
 		Collection<Map<String, Object>> rows = jdbcTemplate.queryForList(sqlQuery);
