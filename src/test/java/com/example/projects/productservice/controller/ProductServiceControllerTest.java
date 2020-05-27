@@ -64,7 +64,7 @@ public class ProductServiceControllerTest {
 		int status = mvcResult.getResponse().getStatus();
 		assertEquals(201, status);
 		String content = mvcResult.getResponse().getContentAsString();
-		assertEquals(content, "Product is created successfully");
+		assertEquals("Product is created successfully", content);
 	}
 
 	@Test
@@ -81,7 +81,7 @@ public class ProductServiceControllerTest {
 		int status = mvcResult.getResponse().getStatus();
 		assertEquals(200, status);
 		String content = mvcResult.getResponse().getContentAsString();
-		assertEquals(content, "Product is updated successsfully");
+		assertEquals("Product is updated successsfully", content);
 	}
 
 	@Test
@@ -92,7 +92,7 @@ public class ProductServiceControllerTest {
 		int status = mvcResult.getResponse().getStatus();
 		assertEquals(200, status);
 		String content = mvcResult.getResponse().getContentAsString();
-		assertEquals(content, "Product is deleted successsfully");
+		assertEquals("Product is deleted successsfully", content);
 	}
 
 	public String mapToJson(Object obj) throws JsonProcessingException {

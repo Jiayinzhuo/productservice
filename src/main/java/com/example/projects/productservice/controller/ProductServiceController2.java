@@ -36,7 +36,7 @@ public class ProductServiceController2 {
 	@Autowired
 	ProductServiceDAO productServiceDAO;
 
-	@RequestMapping(value = "/product")
+	@RequestMapping(value = "/product", method = RequestMethod.GET)
 	public ResponseEntity<Object> getProducts() {
 		return new ResponseEntity<>(productRepo.values(), HttpStatus.OK);
 	}
@@ -63,7 +63,7 @@ public class ProductServiceController2 {
 		return new ResponseEntity<>("Product is deleted successsfully", HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/hello")
+	@RequestMapping(value = "/hello", method = RequestMethod.GET)
 	@HystrixCommand(fallbackMethod = "fallback_hello", commandProperties = {
 			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000") })
 	public String hello() throws InterruptedException {
