@@ -1,0 +1,8 @@
+version: '2.1'
+services:
+  productservice:
+    build: .
+    image: jiayinzhuo/productservice
+    restart: always
+    ports:
+      - 9000:8080

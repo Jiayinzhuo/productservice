@@ -1,8 +1,11 @@
-kind: Deployment
 apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: productservice
+  name: productservice-deployment
 spec:
+  selector:
+    matchLabels:
+      app: productservice
   replicas: 1
   template:
     metadata:
@@ -11,22 +14,20 @@ spec:
     spec:
       containers:
         - name: productservice
-          image: jiayinzhuo/productservice
+          image: jiayinzhuo/productservice:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 8080   
 ---
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
-  name: productservice
-  labels:
-    app: productservice
+  name: productservice-service
 spec:
-  type: LoadBalancer
-  externalTrafficPolicy: Cluster
-  ports:
-    - port: 8080
-      targetPort: 8080
-      nodePort: 31819
   selector:
     app: productservice
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
+  
