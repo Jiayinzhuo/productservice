@@ -47,18 +47,18 @@ spec:
     stage('Build and Test') {
       steps {
       	container('maven') {
+			//run tests
+			sh "mvn clean verify"
+
 			//build
 			sh "mvn clean package"
-			
-			//run tests
-			sh "mvn verify"
-			
+						
 			//bundle the generated artifact
-			sh "cp target/${APP_NAME}-*.jar $APP_JAR"
+			//sh "cp target/${APP_NAME}-*.jar $APP_JAR"
 			
 			// archive the build context for kaniko 
-			sh "tar --exclude='./.git' -zcvf /tmp/$BUILD_CONTEXT ."
-			sh "mv /tmp/$BUILD_CONTEXT ."
+			//sh "tar --exclude='./.git' -zcvf /tmp/$BUILD_CONTEXT ."
+			//sh "mv /tmp/$BUILD_CONTEXT ."
       	}
       }
     }           
@@ -74,8 +74,8 @@ spec:
       steps{
         container('kubectl') {
           // Change deployed image to the one we just built
-          // sh("sed -i.bak 's#gcr.io/cloud-solutions-images/gceme:1.0.0#${IMAGE_TAG}#' ./k8s/*.yaml")
-          step([$class: 'KubernetesEngineBuilder', namespace:'production', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/deployment', credentialsId: env.JENKINS_CRED, verifyDeployments: false])
+          sh("sed -i.bak 's#gcr.io/jenkins-demo-278619/productservice:1.0.0#${IMAGE_TAG}#' ./k8s/*.yaml")
+          step([$class: 'KubernetesEngineBuilder', namespace:'production', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
           sh("echo http://`kubectl --namespace=production get service/${FE_SVC_NAME} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'` > ${FE_SVC_NAME}")
           echo 'To access your environment run `kubectl proxy`'
           echo "Then access your service via http://localhost:8001/api/v1/proxy/namespaces/${env.BRANCH_NAME}/services/${FE_SVC_NAME}:80/"
