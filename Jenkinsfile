@@ -13,7 +13,7 @@ pipeline {
 
   agent {
     kubernetes {
-      label 'sample-app'
+      label 'demo-app'
       defaultContainer 'jnlp'
       yaml """
 apiVersion: v1
@@ -76,7 +76,7 @@ spec:
           // Change deployed image to the one we just built
           sh("sed -i.bak 's#gcr.io/jenkins-demo-278619/productservice:1.0.0#${IMAGE_TAG}#' ./k8s/*.yaml")
           step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
-          sh("echo http://`kubectl --namespace=production get service/${FE_SVC_NAME} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'` > ${FE_SVC_NAME}")
+          sh("echo http://`kubectl get service/${FE_SVC_NAME} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'` > ${FE_SVC_NAME}")
           echo 'To access your environment run `kubectl proxy`'
           echo "Then access your service via http://localhost:8001/api/v1/proxy/namespaces/${env.BRANCH_NAME}/services/${FE_SVC_NAME}:80/"
         }
