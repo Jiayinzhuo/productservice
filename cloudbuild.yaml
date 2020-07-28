@@ -15,7 +15,7 @@ steps:
   - name: "gcr.io/cloud-builders/gke-deploy"
     args:
     - run
-    - --filename=k8s-config-file
+    - --filename=k8s-config-file.yaml
     - --image=gcr.io/cicd-284616/productservice:1.0
     - --location=us-west1-a
     - --cluster=cluster-1
