@@ -5,7 +5,7 @@ steps:
   - name: maven:3-jdk-8
     entrypoint: mvn
     args: ["package", "-Dmaven.test.skip=true"]
-    # build/push the container image
+    # build the container image
   - name: gcr.io/cloud-builders/docker
     args: ["build", "-t", "gcr.io/cicd-284616/productservice:1.0", "--build-arg=JAR_FILE=target/productservice-0.0.1-SNAPSHOT.jar", "."]
     # push container image
