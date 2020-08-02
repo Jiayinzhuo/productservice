@@ -7,7 +7,7 @@ steps:
     args: ["package", "-Dmaven.test.skip=true"]
     # build the container image
   - name: gcr.io/cloud-builders/docker
-    args: ["build", "-t", "gcr.io/cicd-284616/productservice:1.0", "--build-arg=JAR_FILE=target/productservice-1.0.0.jar", "."]
+    args: ["build", "-t", "gcr.io/cicd-284616/productservice:1.0", "--build-arg=JAR_FILE=target/*.jar", "."]
     # push container image
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/cicd-284616/productservice:1.0"]
