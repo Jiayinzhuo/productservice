@@ -6,5 +6,5 @@ steps:
     entrypoint: mvn
     args: ["package", "-Dmaven.test.skip=true"]
   - name: gcr.io/cloud-builders/docker
-    args: ["build", "-t", "gcr.io/cicd-284616/productservice:1.0", "--build-arg=JAR_FILE=target/*.jar", "."]
-images: ["gcr.io/cicd-284616/productservice"]
+    args: ["build", "-t", "gcr.io/gcp-demo-277801/productservice:1.0", "--build-arg=JAR_FILE=target/*.jar", "."]
+images: ["gcr.io/gcp-demo-277801/productservice"]

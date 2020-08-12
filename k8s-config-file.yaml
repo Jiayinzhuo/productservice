@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: "productservice-1"
-        image: "gcr.io/cicd-284616/productservice:1.0"
+        image: "gcr.io/gcp-demo-277801/productservice:1.0"
         ports:
           - containerPort: 8080   
 ---
