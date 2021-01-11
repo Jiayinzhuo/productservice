@@ -17,5 +17,5 @@ steps:
     - run
     - --filename=k8s-config-file.yaml
     - --image=gcr.io/gcp-demo-277801/productservice:1.0
-    - --location=us-east1-b
+    - --location=us-central1-c
     - --cluster=cluster-1
