@@ -1,0 +1,18 @@
+steps:
+  - name: maven:3-jdk-8
+    entrypoint: mvn
+    args: ["test"]
+  - name: maven:3-jdk-8
+    entrypoint: mvn
+    args: ["package", "-Dmaven.test.skip=true"]
+    # build container image
+  - name: gcr.io/cloud-builders/docker
+    args: ["build", "-t", "gcr.io/western-antonym-322000/productservice:1.0", "--build-arg=JAR_FILE=target/*.jar", "."]
+    # push container image
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/western-antonym-322000/productservice:1.0"]
+    # deploy container image to GKE
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ['beta', 'run', 'deploy', 'productservice', '--image', 'gcr.io/western-antonym-322000/productservice:1.0', '--region', 'us-central1','--platform', 'managed', '--quiet', '--allow-unauthenticated']
+images:
+- gcr.io/western-antonym-322000/productservice:1.0
