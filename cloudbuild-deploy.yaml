@@ -3,6 +3,6 @@ steps:
     args:
     - run
     - --filename=k8s-config-file.yaml
-    - --image=gcr.io/gcp-demo-277801/productservice:1.0
-    - --location=us-east1-b
-    - --cluster=cluster-1
+    - --image=gcr.io/western-antonym-322000/productservice:1.0
+    - --location=us-central1-a
+    - --cluster=standard-cluster-1
