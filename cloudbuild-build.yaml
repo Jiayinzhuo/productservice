@@ -7,4 +7,4 @@ steps:
     args: ["package", "-Dmaven.test.skip=true"]
   - name: gcr.io/cloud-builders/docker
     args: ["build", "-t", "gcr.io/western-antonym-322000/productservice:1.0", "--build-arg=JAR_FILE=target/*.jar", "."]
-images: ["gcr.io/gcp-demo-277801/productservice"]
+images: ["gcr.io/western-antonym-322000/productservice:1.0"]
