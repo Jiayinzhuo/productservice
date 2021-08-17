@@ -7,15 +7,15 @@ steps:
     args: ["package", "-Dmaven.test.skip=true"]
     # build container image
   - name: gcr.io/cloud-builders/docker
-    args: ["build", "-t", "gcr.io/gcp-demo-277801/productservice:1.0", "--build-arg=JAR_FILE=target/*.jar", "."]
+    args: ["build", "-t", "gcr.io/western-antonym-322000/productservice:1.0", "--build-arg=JAR_FILE=target/*.jar", "."]
     # push container image
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/gcp-demo-277801/productservice:1.0"]
+    args: ["push", "gcr.io/western-antonym-322000/productservice:1.0"]
     # deploy container image to GKE
   - name: "gcr.io/cloud-builders/gke-deploy"
     args:
     - run
     - --filename=k8s-config-file.yaml
-    - --image=gcr.io/gcp-demo-277801/productservice:1.0
+    - --image=gcr.io/western-antonym-322000/productservice:1.0
     - --location=us-central1
-    - --cluster=gcp-demo-277801-gke
+    - --cluster=standard-cluster-1
