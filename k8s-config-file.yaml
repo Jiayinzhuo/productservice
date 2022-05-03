@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: "productservice-1"
-        image: "gcr.io/western-antonym-322000/productservice:1.0"
+        image: "gcr.io/jovial-sprite-340717/productservice:1.0"
         ports:
           - containerPort: 8080   
 ---
